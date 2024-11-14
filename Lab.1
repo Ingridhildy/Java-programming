@@ -1,0 +1,212 @@
+import java.util.Objects;
+import java.util.Date;
+
+/**
+ * Клас, що представляє інформацію про номер у готелі.
+ */
+class Room {
+    private String type;
+    private int numberOfBeds;
+    private int roomNumber;
+    private String amenities;
+
+    public Room(String type, int numberOfBeds, int roomNumber, String amenities) {
+        this.type = type;
+        this.numberOfBeds = numberOfBeds;
+        this.roomNumber = roomNumber;
+        this.amenities = amenities;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public String getAmenities() {
+        return amenities;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "type='" + type + '\'' +
+                ", numberOfBeds=" + numberOfBeds +
+                ", roomNumber=" + roomNumber +
+                ", amenities='" + amenities + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return numberOfBeds == room.numberOfBeds &&
+                roomNumber == room.roomNumber &&
+                Objects.equals(type, room.type) &&
+                Objects.equals(amenities, room.amenities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, numberOfBeds, roomNumber, amenities);
+    }
+}
+
+/**
+ * Клас, що представляє інформацію про замовника.
+ */
+class Customer {
+    private String lastName;
+    private String firstName;
+    private String document;
+    private Date dateOfBirth;
+
+    public Customer(String lastName, String firstName, String document, Date dateOfBirth) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.document = document;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", document='" + document + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(lastName, customer.lastName) &&
+                Objects.equals(firstName, customer.firstName) &&
+                Objects.equals(document, customer.document) &&
+                Objects.equals(dateOfBirth, customer.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName, document, dateOfBirth);
+    }
+}
+
+/**
+ * Клас, що представляє інформацію про бронювання.
+ */
+class Booking {
+    private Room room;
+    private Customer customer;
+    private Date fromDate;
+    private Date toDate;
+    private boolean isPaid;
+
+    private Booking(Builder builder) {
+        this.room = builder.room;
+        this.customer = builder.customer;
+        this.fromDate = builder.fromDate;
+        this.toDate = builder.toDate;
+        this.isPaid = builder.isPaid;
+    }
+
+    public static class Builder {
+        private Room room;
+        private Customer customer;
+        private Date fromDate;
+        private Date toDate;
+        private boolean isPaid;
+
+        public Builder setRoom(Room room) {
+            this.room = room;
+            return this;
+        }
+
+        public Builder setCustomer(Customer customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public Builder setFromDate(Date fromDate) {
+            this.fromDate = fromDate;
+            return this;
+        }
+
+        public Builder setToDate(Date toDate) {
+            this.toDate = toDate;
+            return this;
+        }
+
+        public Builder setIsPaid(boolean isPaid) {
+            this.isPaid = isPaid;
+            return this;
+        }
+
+        public Booking build() {
+            return new Booking(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "room=" + room +
+                ", customer=" + customer +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
+                ", isPaid=" + isPaid +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return isPaid == booking.isPaid &&
+                Objects.equals(room, booking.room) &&
+                Objects.equals(customer, booking.customer) &&
+                Objects.equals(fromDate, booking.fromDate) &&
+                Objects.equals(toDate, booking.toDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(room, customer, fromDate, toDate, isPaid);
+    }
+}
+
+/*
+Explanation:
+We use create Java lab, with compliance with the requirements for linked classes that use inheritance, aggregation, and the implementation of the Builder pattern.
+Room and Customer – classes with such methods, toString, equals, hashCode.
+Booking – class using the Builder pattern for easy instance creation.
+Javadoc – comments to classes are added, you can add more if necessary.
+*/
