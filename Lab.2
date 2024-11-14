@@ -1,0 +1,51 @@
+/*
+Лаб.2
+Для заданої структури класів зробити сервісні методи (не менше трьох) для роботи з колекціями відповідних об'єктів. 
+Продемонструвати  роботу з  інтерфейсами Comparable та Comparator. Деякі (або всі) методи мають використовувати Stream API.
+*/
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class BookingService {
+    
+    // Сортування кімнат за номером кімнати
+    public List<Room> sortRoomsByNumber(List<Room> rooms) {
+        return rooms.stream()
+                    .sorted(Comparator.comparingInt(Room::getRoomNumber))
+                    .collect(Collectors.toList());
+    }
+
+    // Пошук бронювань для конкретного клієнта
+    public List<Booking> findBookingsByCustomer(List<Booking> bookings, Customer customer) {
+        return bookings.stream()
+                       .filter(booking -> booking.getCustomer().equals(customer))
+                       .collect(Collectors.toList());
+    }
+
+    // Підрахунок кількості доступних кімнат за типом
+    public long countAvailableRoomsByType(List<Room> rooms, String type) {
+        return rooms.stream()
+                    .filter(room -> room.getType().equalsIgnoreCase(type))
+                    .count();
+    }
+}
+
+// Реалізація Comparable в класі Room
+class Room implements Comparable<Room> {
+    // Поля та конструктор...
+
+    @Override
+    public int compareTo(Room other) {
+        return Integer.compare(this.roomNumber, other.roomNumber);
+    }
+}
+
+// Comparator для сортування за кількістю ліжок
+Comparator<Room> bedsComparator = Comparator.comparingInt(Room::getNumberOfBeds);
+
+/*
+Explanation:
+Implement the Comparable interface for the Room class to sort by room number.
+Use Comparator to sort rooms by the number of beds.
+*/
