@@ -1,0 +1,36 @@
+/*
+Лаб.5
+Створити таблиці згідно з заданою предметною областю засобами JDBC. Реалізувати CRUD операції.
+*/
+
+CREATE TABLE Room (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    type VARCHAR(50),
+    number_of_beds INT,
+    room_number INT,
+    amenities VARCHAR(255)
+);
+
+CREATE TABLE Customer (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    last_name VARCHAR(50),
+    first_name VARCHAR(50),
+    document VARCHAR(100),
+    date_of_birth DATE
+);
+
+CREATE TABLE Booking (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    room_id INT,
+    customer_id INT,
+    from_date DATE,
+    to_date DATE,
+    is_paid BOOLEAN,
+    FOREIGN KEY (room_id) REFERENCES Room(id),
+    FOREIGN KEY (customer_id) REFERENCES Customer(id)
+);
+
+/*
+Explanation:
+Realisation of CRUD-operations using JDBC.
+*/
