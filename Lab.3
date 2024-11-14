@@ -1,0 +1,19 @@
+/*
+Лаб.3
+Створити інтерфейс, що буде сериалізувати / десериалізувати сутності у різні формати та записувати/зчитувати сутності у/з файлу. 
+Імплементувати даний інтерфейс для json, xml, yaml формату. 
+*/
+
+public interface Serializer<T> {
+    void serialize(T obj, String filePath) throws Exception;
+    T deserialize(String filePath, Class<T> clazz) throws Exception;
+}
+
+/*
+Explanation: 
+Implementation for JSON, XML, YAML:
+
+For JSON, use the Jackson library.
+For XML, use the JAXB library.
+For YAML, use SnakeYAML.
+*/
